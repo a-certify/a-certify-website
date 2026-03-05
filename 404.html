@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-CERTIFY | Connection Lost</title>
+    <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Sleek Dark Background */
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: #000000; 
+            background: radial-gradient(circle at center, #0a0f1a 0%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            overflow: hidden; 
+        }
+
+        /* Starfield Canvas */
+        #starfield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Minimalist Container */
+        .card {
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+            z-index: 10; 
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 5px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .status {
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        /* Blinking Red Dot for Error */
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444; /* Red color */
+            border-radius: 50%;
+            margin-right: 12px;
+            box-shadow: 0 0 12px #ef4444;
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* Return Button */
+        .return-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 1.5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+
+        .return-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+
+    <div class="card">
+        <h1>404</h1>
+        <div class="status">
+            <span class="status-dot"></span>Connection Lost
+        </div>
+        <a href="/" class="return-btn">Return to Node</a>
+    </div>
+
+    <!-- Script -->
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let width, height, stars = [];
+
+        function initStars() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            stars = [];
+            const numStars = Math.floor((width * height) / 1500); 
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.5,
+                    speed: Math.random() * 0.3 + 0.05
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fill();
+                star.x -= star.speed;
+                star.y -= star.speed * 0.5;
+                if (star.x < 0) star.x = width;
+                if (star.y < 0) star.y = height;
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', initStars);
+        initStars();
+        animateStars();
+
+        // Anti-Theft
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12' || (e.ctrlKey && ['u', 's', 'c', 'i', 'j'].includes(e.key.toLowerCase()))) {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('dragstart', e => e.preventDefault());
+    </script>
+</body>
+</html>
