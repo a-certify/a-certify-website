@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Glowing Hexagon Tech Border -->
+  <polygon points="50,5 95,28 95,72 50,95 5,72 5,28" fill="none" stroke="#00ffaa" stroke-width="8" stroke-linejoin="round"/>
+  
+  <!-- Sleek Minimalist 'A' -->
+  <path d="M50 25 L25 75 L42 75 L50 50 L58 75 L75 75 Z" fill="#00ffaa" />
+  
+  <!-- Small Digital Node at the top -->
+  <circle cx="50" cy="25" r="5" fill="#ffffff" />
+</svg>
