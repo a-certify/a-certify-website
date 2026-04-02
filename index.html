@@ -75,20 +75,15 @@
 
         /* Blinking Blue Dot */
         .status-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: #3b82f6; 
-            border-radius: 50%;
-            margin-right: 12px;
-            box-shadow: 0 0 12px #3b82f6;
-            animation: pulse 2s infinite;
+    background-color: #00ffaa; 
+    box-shadow: 0 0 12px #00ffaa;
+    animation: pulse-green 2s infinite;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.8); }
-            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        @keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(0, 255, 170, 0.8); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 255, 170, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 255, 170, 0); }
         }
     </style>
 </head>
