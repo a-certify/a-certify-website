@@ -1,317 +1,167 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>A-CERTIFY | System Active</title>
-
-    <link rel="icon" href="favicon.svg" type="image/png">
-
     <style>
-
         /* Base Reset */
-
         * {
-
             margin: 0;
-
             padding: 0;
-
             box-sizing: border-box;
-
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-
             /* Prevent text selection */
-
             -webkit-user-select: none;
-
             -moz-user-select: none;
-
             -ms-user-select: none;
-
             user-select: none;
-
         }
-
-
 
         /* Sleek Dark Background */
-
         body, html {
-
             width: 100%;
-
             height: 100%;
-
             background-color: #000000; /* Deep space black */
-
             background: radial-gradient(circle at center, #0a0f1a 0%, #000000 100%);
-
             display: flex;
-
             justify-content: center;
-
             align-items: center;
-
             color: #ffffff;
-
             overflow: hidden; /* Prevent scrolling */
-
         }
-
-
 
         /* Starfield Canvas */
-
         #starfield {
-
             position: absolute;
-
             top: 0;
-
             left: 0;
-
             width: 100%;
-
             height: 100%;
-
             z-index: 0;
-
         }
-
-
 
         /* Minimalist Container */
-
         .card {
-
             text-align: center;
-
             animation: fadeIn 2s ease-in-out;
-
             z-index: 10; /* Keeps text above the stars */
-
         }
-
-
 
         @keyframes fadeIn {
-
             0% { opacity: 0; transform: translateY(10px); }
-
             100% { opacity: 1; transform: translateY(0); }
-
         }
-
-
 
         h1 {
-
             font-size: 2.5rem;
-
             font-weight: 300;
-
             letter-spacing: 5px;
-
             margin-bottom: 15px;
-
             color: #ffffff;
-
         }
-
-
 
         .status {
-
             font-size: 1rem;
-
             font-weight: 300;
-
             color: rgba(255, 255, 255, 0.6);
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             letter-spacing: 1px;
-
             text-transform: uppercase;
-
         }
-
-
 
         /* Blinking Blue Dot */
-
         .status-dot {
-
             display: inline-block;
-
             width: 8px;
-
             height: 8px;
-
             background-color: #3b82f6; 
-
             border-radius: 50%;
-
             margin-right: 12px;
-
             box-shadow: 0 0 12px #3b82f6;
-
             animation: pulse 2s infinite;
-
         }
-
-
 
         @keyframes pulse {
-
             0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.8); }
-
             70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
-
             100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-
         }
-
     </style>
-
 </head>
-
 <body>
 
-
-
     <!-- Animated Starfield Background -->
-
     <canvas id="starfield"></canvas>
 
-
-
     <div class="card">
-
         <h1>A-CERTIFY</h1>
-
         <div class="status">
-
             <span class="status-dot"></span>System Active
-
         </div>
-
     </div>
 
-
-
     <!-- Simple Anti-Theft / Copy Protection Script -->
-
     <script>
-
         // --- Starfield Animation Script ---
-
         const canvas = document.getElementById('starfield');
-
         const ctx = canvas.getContext('2d');
-
         let width, height, stars = [];
 
-
-
         function initStars() {
-
             width = window.innerWidth;
-
             height = window.innerHeight;
-
             canvas.width = width;
-
             canvas.height = height;
-
             stars = [];
-
             // Generate stars based on screen size
-
             const numStars = Math.floor((width * height) / 1500); 
-
             for (let i = 0; i < numStars; i++) {
-
                 stars.push({
-
                     x: Math.random() * width,
-
                     y: Math.random() * height,
-
                     radius: Math.random() * 1.5,
-
                     speed: Math.random() * 0.3 + 0.05
-
                 });
-
             }
-
         }
-
-
 
         function animateStars() {
-
             ctx.clearRect(0, 0, width, height);
-
             ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-
             
-
             stars.forEach(star => {
-
                 ctx.beginPath();
-
                 ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-
                 ctx.fill();
-
                 
-
                 // Slowly drift left and up
-
                 star.x -= star.speed;
-
                 star.y -= star.speed * 0.5;
-
                 
-
                 // Wrap around the screen when they drift off
-
                 if (star.x < 0) star.x = width;
-
                 if (star.y < 0) star.y = height;
-
             });
-
             
-
             requestAnimationFrame(animateStars);
-
         }
 
-
-
         window.addEventListener('resize', initStars);
-
         initStars();
-
         animateStars();
-
         // ----------------------------------
 
-
-
         // Anti-Theft Protection
-
-        document.addEventListener('contextmenu', e =>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12' || (e.ctrlKey && ['u', 's', 'c', 'i', 'j'].includes(e.key.toLowerCase()))) {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('dragstart', e => e.preventDefault());
+    </script>
+</body>
+</html>
